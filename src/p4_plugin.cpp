@@ -64,7 +64,6 @@ godot::String P4Plugin::_get_vcs_name() {
 bool P4Plugin::_initialize(const godot::String &project_path) {
 	using namespace godot;
 	StrBuf msg;
-	// https://www.perforce.com/manuals/p4api/Content/P4API/sample-application.html
 
 	// Initialize P4
 	P4Libraries::Initialize( P4LIBRARIES_INIT_ALL, &p4Err );
