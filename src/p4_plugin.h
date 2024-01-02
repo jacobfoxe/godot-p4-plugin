@@ -1,5 +1,6 @@
 #include "clientapi.h"
 #include "p4libs.h"
+#include "p4_wrappers.h"
 
 #include "godot_cpp/classes/editor_vcs_interface.hpp"
 
@@ -27,6 +28,7 @@ class P4Plugin : public godot::EditorVCSInterface {
         bool _initialize(const godot::String &project_path) override;
         bool _shut_down() override;
         void _setup_connection(const godot::String &username, const godot::String &password, const godot::String &host_server, const godot::String &portnum);
+        bool _update_p4config();
         bool _start_client();
 
 

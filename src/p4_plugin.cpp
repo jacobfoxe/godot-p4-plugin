@@ -1,4 +1,5 @@
 #include "p4_plugin.h"
+#include <cstring>
 #include "godot_cpp/core/class_db.hpp"
 #include "godot_cpp/classes/file_access.hpp"
 #include "godot_cpp/variant/utility_functions.hpp"
@@ -44,7 +45,15 @@ void P4Plugin::_setup_connection(const godot::String &username, const godot::Str
     creds.password = password;
     creds.path = host_server;
     creds.port = portnum;
+}
 
+/*****************************************************************************
+ * 
+ *  Updates P4CONFIG from the input credentials. 
+ * 
+ * ***************************************************************************/
+bool P4Plugin::_update_p4config()
+{
     /* Update P4PORT */
     p4_client.DefinePort(creds.port.utf8(), &p4Err);
     if( p4Err.Test() )
@@ -121,6 +130,13 @@ void P4Plugin::create_p4ignore() {
                 "## Ignore Configuration Files ##\n"
                 "*.cfg\n"
                 "*.cfg*\n");
+        
+        /* Set the ignore file */
+        char* fullIgnorePath = CString(repo_project_path).data;
+        int len = strlen(fullIgnorePath);
+        char* ignore = "/.p4ignore";
+        fullIgnorePath[len+1] = *ignore;
+        p4_client.SetIgnoreFile(fullIgnorePath);
 	}
 }
 
