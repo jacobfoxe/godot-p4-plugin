@@ -18,6 +18,7 @@ class P4Plugin : public godot::EditorVCSInterface {
         ClientUser p4_user;
         ClientApi p4_client;
         Error p4Err;
+        StrBuf msg;
 
         godot::String repo_project_path;
 
@@ -25,7 +26,8 @@ class P4Plugin : public godot::EditorVCSInterface {
         
         bool _initialize(const godot::String &project_path) override;
         bool _shut_down() override;
-        void _setup_connection(const godot::String &username, const godot::String &password, const godot::String &host_server, const godot::int &portnum);
+        void _setup_connection(const godot::String &username, const godot::String &password, const godot::String &host_server, const godot::String &portnum);
+        bool _start_client();
 
 
         void create_p4ignore();
