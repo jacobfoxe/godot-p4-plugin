@@ -1,0 +1,35 @@
+#
+# For Linux 2.6: export OSVER=26  (or the appropriate number for your system)
+#
+# OpenSSL 1.0.1 or 1.0.2 is required when linking against the P4API.
+# Please consult the OpenSSL website for instructions for obtaining OpenSSL
+# if you do not already have the libraries available:
+#    https://www.openssl.org/
+#
+EXEC = . ;
+P4LIBS = $(DOTDOT)$(SLASH)lib ;
+
+if $(OS) = NT {
+	JAMSHELL  = cmd.exe /c ;
+	SSLLIB    = libeay32.lib ;
+	CRYPTOLIB = ssleay32.lib ;
+} else {
+	SSLLIB    = -lssl ;
+	CRYPTOLIB = -lcrypto ;
+}
+
+SubDir P4 ;
+SubDirHdrs $(P4) $(DOTDOT)$(SLASH)include$(SLASH)p4 ;
+
+Main p4api : p4api.cc ;
+
+Main p4dvcsapi : p4dvcsapi.cc ;
+
+LinkSSL p4api ;
+LinkSSL p4dvcsapi ;
+LinkPthread p4api ;
+LinkPthread p4dvcsapi ;
+
+LinkLibraries p4api : $(P4LIBS)$(SLASH)$(P4APILIB) ;
+
+LinkLibraries p4dvcsapi : $(P4LIBS)$(SLASH)$(P4APILIB) ;
