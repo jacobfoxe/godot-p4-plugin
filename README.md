@@ -6,3 +6,4 @@ The implementation is based on https://github.com/godotengine/godot-git-plugin w
 ## Utilities
 * Perforce API Docs: https://www.perforce.com/manuals/p4api/Content/P4API/sample-application.html
 * GDExtension Docs: https://godotengine.org/article/introducing-gd-extensions/
+* P4 Cheat Sheet: https://www.perforce.com/blog/vcs/perforce-cheat-sheet

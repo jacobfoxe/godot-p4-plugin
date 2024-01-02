@@ -9,27 +9,6 @@
 const godot::String VCS_NAME = "Perforce";
 
 
-bool P4Plugin::_shut_down()
-{
-	// Close connection
-
-    p4_client.Final( &p4Err );
-    if( p4Err.Test() )  
-    {
-        p4Err.Fmt( &msg );
-        fprintf( stderr, "%s\n", msg.Text() );
-        return 1;
-    }
-
-    P4Libraries::Shutdown( P4LIBRARIES_INIT_ALL, &p4Err );
-
-    if( p4Err.Test() )
-    {
-        p4Err.Fmt( &msg );
-        fprintf( stderr, "%s\n", msg.Text() );
-        return 1;
-    }
-}
 
 
 
@@ -90,6 +69,11 @@ bool P4Plugin::_update_p4config()
         fprintf( stderr, "%s\n", msg.Text() );
         return 1;
     }
+}
+
+void P4Plugin::_sync_depot()
+{
+
 }
 
 /*****************************************************************************
@@ -163,6 +147,33 @@ bool P4Plugin::_initialize(const godot::String &project_path) {
 
 	if( p4Err.Test() )
     { 
+        p4Err.Fmt( &msg );
+        fprintf( stderr, "%s\n", msg.Text() );
+        return 1;
+    }
+}
+
+/*****************************************************************************
+ * 
+ *  Shuts down the Perforce Plugin and exits.  
+ * 
+ * ***************************************************************************/
+bool P4Plugin::_shut_down()
+{
+	// Close connection
+
+    p4_client.Final( &p4Err );
+    if( p4Err.Test() )  
+    {
+        p4Err.Fmt( &msg );
+        fprintf( stderr, "%s\n", msg.Text() );
+        return 1;
+    }
+
+    P4Libraries::Shutdown( P4LIBRARIES_INIT_ALL, &p4Err );
+
+    if( p4Err.Test() )
+    {
         p4Err.Fmt( &msg );
         fprintf( stderr, "%s\n", msg.Text() );
         return 1;

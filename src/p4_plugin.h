@@ -35,6 +35,8 @@ class P4Plugin : public godot::EditorVCSInterface {
         void create_p4ignore();
         godot::String _get_vcs_name() override;
 
+        /* P4 Funcs */
+        void _sync_depot();
         godot::TypedArray<godot::Dictionary> _parse_diff(git_diff *p_diff);
         godot::TypedArray<godot::Dictionary> _get_line_diff(const godot::String &file_path, const godot::String &text) override;
 }
