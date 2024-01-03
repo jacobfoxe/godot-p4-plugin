@@ -1,4 +1,4 @@
-# godot-perforce-plugin
+# godot-p4-plugin
 This plugin is intended to be used as an integrated VCS tool for Perforce users in Godot 4.2+. 
 
 The implementation is based on https://github.com/godotengine/godot-git-plugin with the help of the official Perforce API. 

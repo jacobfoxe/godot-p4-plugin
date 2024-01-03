@@ -46,7 +46,6 @@ elif env["platform"] == "windows":
 
 env.Append(CPPPATH=[".", "src/"])
 
-env.Append(CPPPATH=["../util/perforce-api/include/"])
 env.Append(LIBPATH=["../util/perforce/"])
 env.Append(LIBPATH=["../util/bin/"])
 env.Prepend(LIBS=["libclient", "libp4api", "libp4script_c", "libp4script_cstub",
