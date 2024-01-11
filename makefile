@@ -1,7 +1,6 @@
 SOURCES = perforce_plugin.cpp
 INCLUDES = -Iutils
 OBJECTS = ${SOURCES:.cc=.o}
-LIBRARIES = perforce/libclient.lib perforce/librpc.a perforce/libsupp.a
 BINARY = perforce_plugin
 RM = /bin/rm -f
 
