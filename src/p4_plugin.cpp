@@ -69,6 +69,8 @@ bool P4Plugin::_update_p4config()
         fprintf( stderr, "%s\n", msg.Text() );
         return 1;
     }
+
+    return 0;
 }
 
 void P4Plugin::_sync_depot()
@@ -92,6 +94,8 @@ bool P4Plugin::_start_client()
         fprintf( stderr, "%s\n", msg.Text() );
         return 1;
     }
+
+    return 0;
 }
 
 /*****************************************************************************
@@ -151,6 +155,8 @@ bool P4Plugin::_initialize(const godot::String &project_path) {
         fprintf( stderr, "%s\n", msg.Text() );
         return 1;
     }
+
+    return 0;
 }
 
 /*****************************************************************************
@@ -178,4 +184,6 @@ bool P4Plugin::_shut_down()
         fprintf( stderr, "%s\n", msg.Text() );
         return 1;
     }
+
+    return 0;
 }

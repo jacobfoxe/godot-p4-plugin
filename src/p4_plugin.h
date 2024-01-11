@@ -1,3 +1,4 @@
+#pragma once
 #include "clientapi.h"
 #include "p4libs.h"
 #include "p4_wrappers.h"
@@ -37,6 +38,9 @@ class P4Plugin : public godot::EditorVCSInterface {
 
         /* P4 Funcs */
         void _sync_depot();
-        godot::TypedArray<godot::Dictionary> _parse_diff(git_diff *p_diff);
+        godot::TypedArray<godot::Dictionary> _parse_diff(void);
         godot::TypedArray<godot::Dictionary> _get_line_diff(const godot::String &file_path, const godot::String &text) override;
-}
+
+    protected:
+	    static void _bind_methods();
+};

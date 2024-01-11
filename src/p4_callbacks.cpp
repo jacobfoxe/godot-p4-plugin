@@ -4,9 +4,9 @@
 #include "p4_callbacks.h"
 #include "p4_plugin.h"
 
-#include "godot_cpp/godot.hpp"
-#include "godot_cpp/variant/utility_functions.hpp"
-
+//#include "godot_cpp/godot.hpp"
+//#include "godot_cpp/variant/utility_functions.hpp"
+/*
 extern "C" int progress_cb(const char *str, int len, void *data) {
 	(void)data;
 
@@ -111,3 +111,5 @@ extern "C" int diff_hunk_cb(const git_diff_delta *delta, const git_diff_hunk *ra
 
 	return 1;
 }
+
+*/

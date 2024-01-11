@@ -11,6 +11,7 @@ struct DiffHelper {
 	P4Plugin *p4_plugin;
 };
 
+/*
 extern "C" int progress_cb(const char *str, int len, void *data);
 extern "C" int update_cb(const char *refname, const git_oid *a, const git_oid *b, void *data);
 extern "C" int transfer_progress_cb(const git_indexer_progress *stats, void *payload);
@@ -19,3 +20,4 @@ extern "C" int credentials_cb(git_cred **out, const char *url, const char *usern
 extern "C" int push_transfer_progress_cb(unsigned int current, unsigned int total, size_t bytes, void *payload);
 extern "C" int push_update_reference_cb(const char *refname, const char *status, void *data);
 extern "C" int diff_hunk_cb(const git_diff_delta *delta, const git_diff_hunk *range, void *payload);
+*/
