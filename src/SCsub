@@ -5,6 +5,10 @@ import os
 env = {}
 Import("env")
 
+## SSL Defines ##
+sslLib = "C:/Program Files/OpenSSL-Win64/lib/"
+#sslInc = "C:/Program Files/OpenSSL-Win64/include/openssl/"
+
 # Process some arguments
 if env["use_llvm"]:
     env["CC"] = "clang"
@@ -19,13 +23,17 @@ env["target_path"] = "../" + env["target_path"]
 if not os.path.isdir(env["target_path"]):
     os.mkdir(env["target_path"])
 
-# Check our platform specifics
+## Platform specifics ##
 if env["platform"] == "macos":
     env["target_path"] += "macos/"
 
     # Force static linkage (https://stackoverflow.com/a/2995999/7370948)
     env.Append(LIBS=[File(env["macos_openssl_static_ssl"]),
                      File(env["macos_openssl_static_crypto"])])
+    env.Prepend(CPPPATH=[env["macos_openssl"] + "include/"])
+    static_ssl = File(env["macos_openssl_static_ssl"])
+    static_crypto = File(env["macos_openssl_static_crypto"])
+    env.Append(LIBS=[static_ssl, static_crypto])
 
     if env["macos_deployment_target"] != "default":
         env.Append(CCFLAGS=["-mmacosx-version-min=" +
@@ -37,21 +45,27 @@ elif env["platform"] == "linux":
     env["target_path"] += "linux/"
     env.Append(LIBS=[File(env["linux_openssl_static_ssl"]),
                      File(env["linux_openssl_static_crypto"])])
+    env.Append(CCFLAGS="-lrt")
 
 elif env["platform"] == "windows":
     env["target_path"] += "win64/"
 
-    env.Append(LIBS=["advapi32", "winhttp", "rpcrt4", "crypt32",
-               "ole32", "user32", "wsock32", "ws2_32", "bcrypt"])
+    ## P4-Specific ##
+    env.Prepend(CPPDEFINES=["/DOS_NT", "/MT", "/DCASE_INSENSITIVE"])
+    env.Append(LIBS=["advapi32", "ws2_32", "libcmt", "oldnames", "kernel32", "shell32"])
+    
+    ## Others ##
+    env.Prepend(LIBS=["crypt32", "winhttp", "rpcrt4", "bcrypt", "ole32", "user32"])
 
-env.Append(CPPPATH=[".", "src/", "util/perforce-api/include/"])
 
-env.Append(LIBPATH=["../util/perforce/", "../util/perforce-api/include/"])
-env.Append(LIBPATH=["../util/bin/"])
-env.Append(LIBS=["clientapi"])
-env.Prepend(LIBS=["libclient", "libp4api", "libp4script_c", "libp4script_cstub",
-                  "libp4script_curl", "libp4script_sqlite", "libp4script", "librpc",
-                  "libsupp"])
+## P4 Link Order w/ SSL Support ##
+env.Append(CPPPATH=[".", "src/"])
+env.Append(CPPPATH=["../util/perforce/include/p4/"])
+env.Append(LIBPATH=["../util/perforce/lib/", "../util/openssl/"])
+env.Prepend(LIBS=["libclient", "librpc", "libsupp", "ssleay32", "libeay32"])
+
+# Optional #
+env.Append(LIBS=["libp4api", "libp4script", "libp4script_c", "libp4script_cstub", "libp4script_curl", "libp4script_sqlite"])
 
 sources=Glob("*.cpp")
 
