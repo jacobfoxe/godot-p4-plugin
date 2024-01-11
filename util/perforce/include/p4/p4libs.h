@@ -44,6 +44,7 @@
 	Opposite of DisableFileSysCreateOnIntr().
 */
 
+#pragma once
 enum P4LibrariesInits
 {
 	P4LIBRARIES_INIT_P4     = 0x01,
