@@ -187,3 +187,12 @@ bool P4Plugin::_shut_down()
 
     return 0;
 }
+
+P4Plugin::P4Plugin()
+{
+
+}
+
+void P4Plugin::_bind_methods() {
+	// Doesn't seem to require binding functions for now
+}
