@@ -44,17 +44,21 @@ elif env["platform"] == "windows":
     env.Append(LIBS=["advapi32", "winhttp", "rpcrt4", "crypt32",
                "ole32", "user32", "wsock32", "ws2_32", "bcrypt"])
 
-env.Append(CPPPATH=[".", "src/"])
+env.Append(CPPPATH=[".", "src/", "util/perforce-api/include/"])
 
-env.Append(LIBPATH=["../util/perforce/"])
+env.Append(LIBPATH=["../util/perforce/", "../util/perforce-api/include/"])
 env.Append(LIBPATH=["../util/bin/"])
+env.Append(LIBS=["clientapi"])
 env.Prepend(LIBS=["libclient", "libp4api", "libp4script_c", "libp4script_cstub",
                   "libp4script_curl", "libp4script_sqlite", "libp4script", "librpc",
                   "libsupp"])
 
+sources=Glob("*.cpp")
+
 library = env.SharedLibrary(
     target=env["target_path"] +
     "{}{}{}".format(env["target_name"], env["suffix"], env["SHLIBSUFFIX"]),
-    source=Glob("src/*.cpp")
+    source=sources
 )
+
 Default(library)
