@@ -1,7 +1,7 @@
-SOURCES = perforce_plugin.cpp
+SOURCES = p4_plugin.cpp
 INCLUDES = -Iutils
 OBJECTS = ${SOURCES:.cc=.o}
-BINARY = perforce_plugin
+BINARY = p4_plugin
 RM = /bin/rm -f
 
 C = c
